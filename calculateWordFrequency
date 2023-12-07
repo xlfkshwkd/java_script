@@ -1,0 +1,23 @@
+function calculateWordFrequency(str) {
+    // 단어들을 담을 맵 생성
+    const wordMap = new Map();
+
+    // 문자열을 공백으로 나누어 단어로 분리
+    const words = str.split(' ');
+
+    // 각 단어의 빈도수 계산
+    for (const word of words) {
+        // 소문자로 변환하여 일관성 유지
+        const cleanedWord = word.toLowerCase();
+
+        // 맵에 이미 해당 단어가 있다면 빈도수 증가, 없다면 초기값 1로 설정
+        wordMap.set(cleanedWord, (wordMap.get(cleanedWord) || 0) + 1);
+    }
+
+    return wordMap;
+}
+
+// 테스트
+const inputString = "apple banana orange banana apple orange apple";
+const result = calculateWordFrequency(inputString);
+console.log(result);
