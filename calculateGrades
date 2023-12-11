@@ -1,0 +1,36 @@
+function calculateGrades(students) {
+    const gradeMap = new Map();
+
+    for (const student of students) {
+        const { name, score } = student;
+
+        let grade;
+        if (score >= 90) {
+            grade = 'A';
+        } else if (score >= 80) {
+            grade = 'B';
+        } else if (score >= 70) {
+            grade = 'C';
+        } else if (score >= 60) {
+            grade = 'D';
+        } else {
+            grade = 'F';
+        }
+
+        gradeMap.set(name, grade);
+    }
+
+    return gradeMap;
+}
+
+// 테스트
+const students = [
+    { id: 1, name: 'Alice', score: 85 },
+    { id: 2, name: 'Bob', score: 90 },
+    { id: 3, name: 'Charlie', score: 75 },
+    { id: 4, name: 'David', score: 95 },
+    { id: 5, name: 'Eve', score: 80 }
+];
+
+const result = calculateGrades(students);
+console.log(result);
