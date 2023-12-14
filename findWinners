@@ -1,0 +1,12 @@
+const scores = [85, 92, 88, 91, 78, 89, 95, 90];
+
+function findWinners(scores) {
+  const sortedScores = scores.slice().sort((a, b) => b - a);
+  const winners = sortedScores.slice(0, 3);
+  return winners;
+}
+
+const winners = findWinners(scores);
+console.log("1등: " + winners[0]);
+console.log("2등: " + winners[1]);
+console.log("3등: " + winners[2]);
