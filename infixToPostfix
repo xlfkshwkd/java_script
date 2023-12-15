@@ -1,0 +1,55 @@
+function infixToPostfix(infixExpression) {
+  const precedence = {
+    '+': 1,
+    '-': 1,
+    '*': 2,
+    '/': 2
+  };
+
+  const isOperator = (char) => ['+', '-', '*', '/'].includes(char);
+
+  const stack = [];
+  let postfixExpression = '';
+
+  for (let i = 0; i < infixExpression.length; i++) {
+    const currentChar = infixExpression[i];
+
+    if (/[A-Z]/.test(currentChar)) {
+      postfixExpression += currentChar;
+    } else if (currentChar === '(') {
+      stack.push(currentChar);
+    } else if (currentChar === ')') {
+      while (stack.length && stack[stack.length - 1] !== '(') {
+        postfixExpression += stack.pop();
+      }
+      stack.pop(); // '(' 제거
+    } else if (isOperator(currentChar)) {
+      while (
+        stack.length &&
+        precedence[stack[stack.length - 1]] >= precedence[currentChar]
+      ) {
+        postfixExpression += stack.pop();
+      }
+      stack.push(currentChar);
+    }
+  }
+
+  while (stack.length) {
+    postfixExpression += stack.pop();
+  }
+
+  return postfixExpression;
+}
+
+// 테스트
+const infixExpression1 = "A*(B+C)";
+console.log(infixToPostfix(infixExpression1));  // 출력: ABC+*
+
+const infixExpression2 = "A+B";
+console.log(infixToPostfix(infixExpression2));  // 출력: AB+
+
+const infixExpression3 = "A+B*C";
+console.log(infixToPostfix(infixExpression3));  // 출력: ABC*+
+
+const infixExpression4 = "A+B*C-D/E";
+console.log(infixToPostfix(infixExpression4));  // 출력: ABC*+DE/-
