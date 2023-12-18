@@ -1,0 +1,55 @@
+class Graph {
+  constructor() {
+    this.vertices = [];
+    this.edges = {};
+  }
+
+  addVertex(vertex) {
+    this.vertices.push(vertex);
+    this.edges[vertex] = [];
+  }
+
+  addEdge(vertex1, vertex2) {
+    this.edges[vertex1].push(vertex2);
+    this.edges[vertex2].push(vertex1);
+  }
+
+  dfs(startingVertex, visited) {
+    if (!visited) {
+      visited = {};
+    }
+
+    console.log(startingVertex);
+    visited[startingVertex] = true;
+
+    for (const neighbor of this.edges[startingVertex]) {
+      if (!visited[neighbor]) {
+        this.dfs(neighbor, visited);
+      }
+    }
+  }
+}
+
+// 예제 그래프 생성
+const graph = new Graph();
+graph.addVertex("A");
+graph.addVertex("B");
+graph.addVertex("C");
+graph.addVertex("D");
+graph.addVertex("E");
+
+graph.addEdge("A", "B");
+graph.addEdge("A", "C");
+graph.addEdge("B", "D");
+graph.addEdge("C", "E");
+
+// DFS 수행
+console.log("DFS Starting from Vertex A:");
+graph.dfs("A");
+
+// 결과 출력:
+// A
+// B
+// D
+// C
+// E
