@@ -1,0 +1,27 @@
+function bubbleSort(arr) {
+  const n = arr.length;
+
+  for (let i = 0; i < n - 1; i++) {
+    // 각 패스에서 마지막 i개의 원소는 이미 정렬되어 있으므로 비교할 필요가 없음
+    for (let j = 0; j < n - i - 1; j++) {
+      // 현재 원소와 다음 원소를 비교하여 정렬
+      if (arr[j] > arr[j + 1]) {
+        // Swap
+        const temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+
+  return arr;
+}
+
+// 테스트
+const unsortedArray = [64, 34, 25, 12, 22, 11, 90];
+const sortedArray = bubbleSort(unsortedArray.slice());
+
+console.log("Unsorted Array:", unsortedArray);
+console.log("Sorted Array:", sortedArray);
+
+ 시간 복잡도 O(n^2)
