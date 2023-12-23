@@ -1,0 +1,25 @@
+function insertionSort(arr) {
+  const n = arr.length;
+
+  for (let i = 1; i < n; i++) {
+    // 현재 원소를 정렬된 부분에 삽입
+    const currentElement = arr[i];
+    let j = i - 1;
+
+    while (j >= 0 && arr[j] > currentElement) {
+      arr[j + 1] = arr[j];
+      j--;
+    }
+
+    arr[j + 1] = currentElement;
+  }
+
+  return arr;
+}
+
+// 테스트
+const unsortedArray = [64, 34, 25, 12, 22, 11, 90];
+const sortedArray = insertionSort(unsortedArray.slice());
+
+console.log("Unsorted Array:", unsortedArray);
+console.log("Sorted Array:", sortedArray);
