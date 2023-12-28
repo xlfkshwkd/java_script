@@ -1,0 +1,78 @@
+function calculate(expression) {
+    const stack = [];
+    const operators = {
+        '+': (x, y) => x + y,
+        '-': (x, y) => x - y,
+        '*': (x, y) => x * y,
+        '/': (x, y) => Math.floor(x / y)
+    };
+
+    for (const token of expression) {
+        if (!isNaN(token)) {
+            stack.push(Number(token));
+        } else {
+            const operand2 = stack.pop();
+            const operand1 = stack.pop();
+            const result = operators[token](operand1, operand2);
+            stack.push(result);
+        }
+    }
+
+    return stack[0];
+}
+
+function findMaxMin(N, numbers, operatorsCount) {
+    const operators = [];
+    const operatorChars = ['+', '-', '*', '/'];
+
+    operatorChars.forEach((op, index) => {
+        operators.push(...Array(operatorsCount[index]).fill(op));
+    });
+
+    const operatorPermutations = getPermutations(operators);
+
+    let maxResult = Number.MIN_SAFE_INTEGER;
+    let minResult = Number.MAX_SAFE_INTEGER;
+
+    for (const perm of operatorPermutations) {
+        const expression = numbers.map((num, index) => index < N - 1 ? num + perm[index] : String(num));
+        const result = calculate(expression);
+
+        maxResult = Math.max(maxResult, result);
+        minResult = Math.min(minResult, result);
+    }
+
+    return [maxResult, minResult];
+}
+
+function getPermutations(arr) {
+    const result = [];
+
+    const permute = (arr, current) => {
+        if (arr.length === 0) {
+            result.push([...current]);
+            return;
+        }
+
+        for (let i = 0; i < arr.length; i++) {
+            const remaining = arr.slice(0, i).concat(arr.slice(i + 1));
+            current.push(arr[i]);
+            permute(remaining, current);
+            current.pop();
+        }
+    };
+
+    permute(arr, []);
+
+    return result;
+}
+
+// 입력 받기
+const N = parseInt(prompt("수의 개수 N을 입력하세요."));
+const numbers = prompt("수열을 입력하세요.").split(' ').map(Number);
+const operatorsCount = prompt("덧셈, 뺄셈, 곱셈, 나눗셈의 개수를 순서대로 입력하세요.").split(' ').map(Number);
+
+// 결과 출력
+const [maxResult, minResult] = findMaxMin(N, numbers, operatorsCount);
+console.log(maxResult);
+console.log(minResult);
