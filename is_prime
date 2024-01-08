@@ -1,0 +1,29 @@
+def is_prime(num):
+    if num < 2:
+        return False
+    for i in range(2, int(num**0.5) + 1):
+        if num % i == 0:
+            return False
+    return True
+
+def generate_super_primes():
+    super_primes = []
+    num = 2
+    while True:
+        if is_prime(num) and is_prime(len(super_primes) + 1):
+            super_primes.append(num)
+        if len(super_primes) == 3000:
+            break
+        num += 1
+    return super_primes
+
+def main():
+    t = int(input())
+    super_primes = generate_super_primes()
+
+    for _ in range(t):
+        n = int(input())
+        print(super_primes[n - 1])
+
+if __name__ == "__main__":
+    main()
