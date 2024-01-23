@@ -1,0 +1,73 @@
+function dijkstra(graph, start) {
+  const distances = {};
+  const visited = {};
+  const parent = {};
+  const queue = new PriorityQueue();
+
+  // Initialize distances and queue
+  for (let vertex in graph) {
+    distances[vertex] = Infinity;
+    visited[vertex] = false;
+    parent[vertex] = null;
+  }
+  distances[start] = 0;
+  queue.enqueue(start, 0);
+
+  while (!queue.isEmpty()) {
+    const currentVertex = queue.dequeue().data;
+    if (visited[currentVertex]) continue;
+
+    visited[currentVertex] = true;
+
+    for (let neighbor in graph[currentVertex]) {
+      const weight = graph[currentVertex][neighbor];
+      const totalDistance = distances[currentVertex] + weight;
+
+      if (totalDistance < distances[neighbor]) {
+        distances[neighbor] = totalDistance;
+        parent[neighbor] = currentVertex;
+        queue.enqueue(neighbor, totalDistance);
+      }
+    }
+  }
+
+  return { distances, parent };
+}
+
+// Priority Queue implementation
+class PriorityQueue {
+  constructor() {
+    this.queue = [];
+  }
+
+  enqueue(data, priority) {
+    this.queue.push({ data, priority });
+    this.sort();
+  }
+
+  dequeue() {
+    return this.queue.shift();
+  }
+
+  isEmpty() {
+    return this.queue.length === 0;
+  }
+
+  sort() {
+    this.queue.sort((a, b) => a.priority - b.priority);
+  }
+}
+
+// Example usage
+const graph = {
+  A: { B: 1, C: 4 },
+  B: { A: 1, C: 2, D: 5 },
+  C: { A: 4, B: 2, D: 1 },
+  D: { B: 5, C: 1 },
+};
+
+const startNode = "A";
+const { distances, parent } = dijkstra(graph, startNode);
+
+console.log("Distances:", distances);
+console.log("Parent nodes:", parent);
