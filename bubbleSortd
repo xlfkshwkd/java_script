@@ -1,0 +1,22 @@
+function bubbleSort(arr) {
+  const len = arr.length;
+
+  for (let i = 0; i < len - 1; i++) {
+    for (let j = 0; j < len - 1 - i; j++) {
+      // 현재 원소와 다음 원소를 비교하여 크기 순서대로 정렬
+      if (arr[j] > arr[j + 1]) {
+        // Swap
+        const temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+
+  return arr;
+}
+
+// Example usage
+const unsortedArray = [64, 34, 25, 12, 22, 11, 90];
+const sortedArray = bubbleSort(unsortedArray);
+console.log(sortedArray); // [11, 12, 22, 25, 34, 64, 90]
