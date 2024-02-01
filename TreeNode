@@ -1,0 +1,29 @@
+// 트리 구조 예시
+class TreeNode {
+  constructor(value) {
+    this.value = value;
+    this.children = [];
+  }
+}
+
+const root = new TreeNode(1);
+const child1 = new TreeNode(2);
+const child2 = new TreeNode(3);
+
+root.children.push(child1, child2);
+
+// 그래프 구조 예시
+class GraphNode {
+  constructor(value) {
+    this.value = value;
+    this.neighbors = [];
+  }
+}
+
+const node1 = new GraphNode(1);
+const node2 = new GraphNode(2);
+const node3 = new GraphNode(3);
+
+node1.neighbors.push(node2, node3);
+node2.neighbors.push(node1);
+node3.neighbors.push(node1);
