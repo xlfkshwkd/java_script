@@ -1,0 +1,12 @@
+PUT /users/123
+{
+  "name": "John Doe",
+  "age": 30
+}
+
+PATCH /users/123
+{
+  "age": 31
+}
+
+DELETE /users/123
