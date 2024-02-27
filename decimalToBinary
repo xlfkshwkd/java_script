@@ -1,0 +1,14 @@
+function decimalToBinary(decimal) {
+    return (decimal >>> 0).toString(2);
+}
+
+function binaryToDecimal(binary) {
+    return parseInt(binary, 2);
+}
+
+// 사용 예시
+let decimalNumber = 42;
+let binaryNumber = "101010";
+
+console.log(decimalNumber + "을(를) 이진수로 변환하면 " + decimalToBinary(decimalNumber));
+console.log(binaryNumber + "을(를) 10진수로 변환하면 " + binaryToDecimal(binaryNumber));
